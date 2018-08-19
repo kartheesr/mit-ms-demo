@@ -1,5 +1,6 @@
 package com.mitosis.msdemo.order.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.mitosis.msdemo.product.model.Product;
 import com.mitosis.msdemo.utils.CSResponseMessage;
 import com.mitosis.msdemo.utils.CommonUtils;
 import com.mitosis.msdemo.utils.MyAppointmentResponse;
+import com.mitosis.msdemo.utils.OrderSortUtil;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
@@ -69,6 +71,7 @@ public class OrderController {
     			double totalPrice = unitPrice * req.getQty();
     			req.setTotalPrice(totalPrice);
     			req.setOrderId("MIT"+CommonUtils.generateRandomInteger(5));
+    			req.setCreateOn(new Date());
 				Order data = orderService.save(req);
 				response.setStatus(CSResponseMessage.SUCCESS);
 				response.setMessage(CSResponseMessage.RECORD_ADDED);
@@ -120,23 +123,11 @@ public class OrderController {
 	    	MyAppointmentResponse response = new MyAppointmentResponse();
 	    	try{
 	    		List<Order> orders = orderService.getByCustomerId(customerId);
+	    		
+	    		OrderSortUtil.sort(orders, "CREATEON", "DESC");
+	    		
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(orders);
-	    	}catch(Exception e){
-	    		e.printStackTrace();
-	    		response.setStatus(CSResponseMessage.ERROR);
-	    		response.setMessage(e.getMessage());
-	    	}
-	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
-	    }
-	    
-	    @RequestMapping
-	    public ResponseEntity<MyAppointmentResponse> list() {
-	        MyAppointmentResponse response = new MyAppointmentResponse();
-	    	try{
-	    		List<Order> sampleList = orderService.getAll();
-	    		response.setStatus(CSResponseMessage.SUCCESS);
-	    		response.setData(sampleList);
 	    	}catch(Exception e){
 	    		e.printStackTrace();
 	    		response.setStatus(CSResponseMessage.ERROR);

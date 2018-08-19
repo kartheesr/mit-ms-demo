@@ -1,5 +1,7 @@
 package com.mitosis.msdemo.order.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 
 public class Order {
@@ -20,6 +22,8 @@ public class Order {
 	private double totalPrice;
 	
 	private String customerId;
+	
+	private Date createOn;
 	
 	public String getId() {
 		return id;
@@ -83,6 +87,14 @@ public class Order {
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
+	}
+
+	public Date getCreateOn() {
+		return createOn;
+	}
+
+	public void setCreateOn(Date createOn) {
+		this.createOn = createOn;
 	}
 	
 }
