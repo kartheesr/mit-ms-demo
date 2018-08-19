@@ -15,6 +15,7 @@ import com.mitosis.msdemo.order.dao.OrderDao;
 import com.mitosis.msdemo.order.model.Order;
 import com.mitosis.msdemo.order.service.OrderService;
 import com.mitosis.msdemo.utils.CSResponseMessage;
+import com.mitosis.msdemo.utils.CommonUtils;
 import com.mitosis.msdemo.utils.MyAppointmentResponse;
 
 @RestController
@@ -35,6 +36,7 @@ public class OrderController {
     			double unitPrice = req.getUnitPrice();
     			double totalPrice = unitPrice * req.getQty();
     			req.setTotalPrice(totalPrice);
+    			req.setOrderId("MIT"+CommonUtils.generateRandomInteger(5));
 				Order data = orderService.save(req);
 				response.setStatus(CSResponseMessage.SUCCESS);
 				response.setMessage(CSResponseMessage.RECORD_ADDED);
