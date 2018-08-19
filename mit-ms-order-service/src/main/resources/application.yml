@@ -1,0 +1,35 @@
+# Service registers under this name
+spring:
+  application:
+    name: mit-ms-order-service
+    
+  #DB Access
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: mit-ms-demo    
+    
+    
+# HTTP Server (Tomcat) Port
+server:
+  port: 9092
+
+
+# Discovery Server Access
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:6060/eureka/}
+  instance:
+    #hostname: localhost
+    preferIpAddress: true
+    
+
+# Disable Spring Boot's "Whitelabel" default error page, so we can use our own
+error:
+  whitelabel:
+    enabled:  false    
+    

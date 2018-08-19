@@ -1,4 +1,4 @@
-package com.mitosis.msdemo.customer.controller;
+package com.mitosis.msdemo.product.controller;
 
 import java.util.List;
 
@@ -11,87 +11,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mitosis.msdemo.customer.dao.CustomerDao;
-import com.mitosis.msdemo.customer.model.Customer;
-import com.mitosis.msdemo.customer.service.CustomerService;
+import com.mitosis.msdemo.product.dao.ProductDao;
+import com.mitosis.msdemo.product.model.Product;
+import com.mitosis.msdemo.product.service.ProductService;
 import com.mitosis.msdemo.utils.CSResponseMessage;
-import com.mitosis.msdemo.utils.CommonUtils;
 import com.mitosis.msdemo.utils.MyAppointmentResponse;
 
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping("/product")
+public class ProductController {
 	
 	@Autowired
-	CustomerService customerService;
+	ProductService productService;
 	
 	@Autowired
-	CustomerDao customerDao;
+	ProductDao productDao;
 	
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ResponseEntity<MyAppointmentResponse> create(@RequestBody Customer req) {
+	@RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<MyAppointmentResponse> create(@RequestBody Product req) {
 		MyAppointmentResponse response = new MyAppointmentResponse();
     	try{
-    		if(customerService.validateCustomer(req)) {
-				String email = req.getEmail().trim().toLowerCase();
-				Customer profile = customerDao.findByEmail(email);
-				if(profile==null){
-					req.setEmail(email);
-					String encPass = CommonUtils.passwordToHash(req.getPassword());
-					req.setPassword(encPass);
-					Customer data = customerService.save(req);
-					response.setMessage(CSResponseMessage.RECORD_ADDED);
+    		if(productService.validateProduct(req)) {
+				String code = req.getName().trim().toUpperCase().replaceAll(" ","");
+				Product product = productDao.findByCode(code);
+				if(product==null || (product.getId().equals(req.getId()))){
+					req.setCode(code);
+					Product data = productService.save(req);
+					response.setMessage(CSResponseMessage.RECORD_UPDATED);
 					response.setStatus(CSResponseMessage.SUCCESS);
 					response.setData(data);
 				}else {
 					response.setMessage(CSResponseMessage.FAILURE);
-					response.setStatus(CSResponseMessage.EMAIL_EXIST);
+					response.setStatus(CSResponseMessage.NAME_EXIST);
 				}
     		}else {
     			response.setMessage(CSResponseMessage.FAILURE);
 				response.setStatus(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
     		}
     	}catch(Exception e){
+    		e.printStackTrace();
     		response.setStatus(CSResponseMessage.ERROR);
     		response.setMessage(CSResponseMessage.RECORD_ADD_ERROR);
     	}
         return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
     }
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<MyAppointmentResponse> login(@RequestBody Customer req) {
-		MyAppointmentResponse response = new MyAppointmentResponse();
-    	try{
-    		if(customerService.validateLoginReq(req)) {
-				String email = req.getEmail().trim().toLowerCase();
-				String encPass = CommonUtils.passwordToHash(req.getPassword());
-				Customer profile = customerDao.findByEmailAndPassword(email, encPass);
-				if(profile!=null){
-					response.setMessage(CSResponseMessage.SUCCESS);
-					response.setStatus(CSResponseMessage.SUCCESS);
-					response.setData(profile);
-				}else {
-					response.setMessage(CSResponseMessage.FAILURE);
-					response.setStatus(CSResponseMessage.INCORRECT_EMAIL_OR_PASSWORD);
-				}
-    		}else {
-    			response.setMessage(CSResponseMessage.FAILURE);
-				response.setStatus(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
-    		}
-    	}catch(Exception e){
-    		response.setStatus(CSResponseMessage.ERROR);
-    		response.setMessage(CSResponseMessage.RECORD_ADD_ERROR);
-    	}
-        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
-    }
-	
-	 @RequestMapping(value="/{id}")
+
+	@RequestMapping(value="/{id}")
 	    public ResponseEntity<MyAppointmentResponse> getById(@PathVariable("id") String id){
 	    	MyAppointmentResponse response = new MyAppointmentResponse();
 	    	try{
-	    		Customer customer = customerService.getById(id);
+	    		Product product = productService.getById(id);
 	    		response.setStatus(CSResponseMessage.SUCCESS);
-	    		response.setData(customer);
+	    		response.setData(product);
 	    	}catch(Exception e){
 	    		response.setStatus(CSResponseMessage.FAILURE);
 	    		response.setMessage(CSResponseMessage.ERROR);
@@ -103,7 +74,7 @@ public class CustomerController {
 	    public ResponseEntity<MyAppointmentResponse> delete(@PathVariable("id") String sampleId){
 	    	MyAppointmentResponse response = new MyAppointmentResponse();
 	    	try{
-	    		customerService.deleteById(sampleId);
+	    		productService.deleteById(sampleId);
 	    		response.setMessage(CSResponseMessage.RECORD_DELETED);
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    	}catch(Exception e){
@@ -117,7 +88,7 @@ public class CustomerController {
 	    public ResponseEntity<MyAppointmentResponse> list() {
 	        MyAppointmentResponse response = new MyAppointmentResponse();
 	    	try{
-	    		List<Customer> sampleList = customerService.getAll();
+	    		List<Product> sampleList = productService.getAll();
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(sampleList);
 	    	}catch(Exception e){
