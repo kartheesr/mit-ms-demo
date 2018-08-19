@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.mitosis.msdemo.order.dao.OrderDao;
 import com.mitosis.msdemo.order.model.Order;
 import com.mitosis.msdemo.order.service.OrderService;
+import com.mitosis.msdemo.product.model.Product;
 import com.mitosis.msdemo.utils.CSResponseMessage;
 import com.mitosis.msdemo.utils.CommonUtils;
 import com.mitosis.msdemo.utils.MyAppointmentResponse;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Application;
 
 @RestController
 @RequestMapping("/order")
@@ -28,12 +33,39 @@ public class OrderController {
 	@Autowired
 	OrderDao orderDao;
 	
+	@Autowired
+	RestTemplate restTemplate;
+
+    @Autowired
+    EurekaClient eurekaClient;
+    
 	@RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<MyAppointmentResponse> createOrder(@RequestBody Order req) {
 		MyAppointmentResponse response = new MyAppointmentResponse();
     	try{
     		if(orderService.validateOrder(req)) {
+    			Product product = null;
+    			Application application = eurekaClient.getApplication("mit-ms-product-service");
+    			if(application != null && CommonUtils.validateList(application.getInstances())){
+    				 InstanceInfo instanceInfo = application.getInstances().get(0);
+    				 if(instanceInfo != null) {
+	    			     String url = "http://" + instanceInfo.getIPAddr() + ":" + instanceInfo.getPort() + "/" + "product/" + req.getProductId();
+	    			     System.out.println("Get Product URL"+url);
+	    			     product = restTemplate.getForObject(url, Product.class);
+    				 }
+    			}
+    			
     			double unitPrice = req.getUnitPrice();
+    			
+    			if(product != null) {
+    				System.out.println("Product ID: "+product.getId());
+    				System.out.println("Product Name: "+product.getName());
+    				System.out.println("Product Name: "+product.getName());
+    				unitPrice = product.getPrice();
+    				req.setProductName(product.getName());
+    			}
+    			
+    			req.setUnitPrice(unitPrice);
     			double totalPrice = unitPrice * req.getQty();
     			req.setTotalPrice(totalPrice);
     			req.setOrderId("MIT"+CommonUtils.generateRandomInteger(5));
