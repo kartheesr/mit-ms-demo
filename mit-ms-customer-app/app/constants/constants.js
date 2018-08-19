@@ -10,6 +10,6 @@ angular.module('msCusApp.constant').constant('CONSTANT', {
 		},
 
 		ERROR_CODE:{
-			E001: 'SERVER ERROR'
+			E001: 'SERVER UNDER MAINTANENCE.. WE WILL FIX IT SOON!'
 		}
  });

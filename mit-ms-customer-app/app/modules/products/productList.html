@@ -9,8 +9,8 @@
 						<h5>Product List</h5>
 					</div>
 					<div flex="50" class="text-right manipulationIcon">
-						<input type="text" ng-model="restaurants.filter.searchText" ng-model-options="{ debounce: {'default': 2000} }" ng-change="getRestaurantList();" placeholder="Search" style="background-image:url(assets/images/musica-searcher.png); "/>
-						<button ui-sref="app.settings.restaurant"><span><img src="assets/images/add.png" /></span> ADD RESTAURANT</button>
+						<input type="text" ng-model="products.searchText"  placeholder="Search" style="background-image:url(assets/images/musica-searcher.png); "/>
+						<button ng-click="addProduct($event)"><span><img src="assets/images/add.png" /></span> ADD PRODUCT</button>
 					</div>
 				</div>
 			</div>
@@ -20,38 +20,39 @@
 					<thead>
 						<tr>
 							<th>PRODUCT NAME</th>
-							<th>PRICE</th>
-							<th>CURRENT STATUS</th>
-							<th ><span style="min-width:300px; display:inline-block;">ACTIONS</span></th>
+							<th>DESCRIPTION</th>
+							<th>UNIT PRICE</th>
+							<th ><span style="display:inline-block;">ACTIONS</span></th>
 						</tr>
 					</thead>
 					<tbody style="position: relative">
-						<tr dir-paginate="dt in restaurants.data.orders | itemsPerPage: restaurants.filter.paginate.limit : 'restaurantListPagination' track by $index"  pagination-id="restaurantListPagination" current-page="restaurants.filter.paginate.pageNo" total-items="total">
+						<tr ng-repeat="dt in products.data | filter : products.searchText" >
 							<td><span class="highlight" style="display:inline-block; max-width:200px; overflow: hidden;text-overflow: ellipsis;  white-space: nowrap;  "><md-tooltip md-direction="bottom">{{dt.name}}</md-tooltip> {{dt.name}}</span></td>
-							<td>{{dt.createOn | date:'dd MMM yyyy'}}</td>
-							<td>{{dt.phone}}</td>
-							<td><span class="active" style="width: 75px"  ng-style="{'background-color':dt.isNow?'#61c631':'red'}"><i class="fa fa-check" aria-hidden="true"></i> {{(!dt.loading) ? (dt.isNow?'ACTIVE':'IN-ACTIVE'):''}} {{(dt.loading)?'Processing..':''}}</span></td>
+							<td>{{dt.desc}}</td>
+							<td><i class="fa fa-inr inr"></i>{{dt.price}}</td>
 							<td>
-	
+	                          <button ng-click="buyProduct($event, dt)"  style="background-color:#7198df; color:#FFFFFF; border:none; font-size: 12px;    font-weight: 600; border-radius:20px; padding:5px 20px 5px;">
+								BUY
+							</button>
 	                        </td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-            <div ng-show="restaurants.loading" class="containerLoader" layout layout-align="center" style="opacity:0.2;position: fixed;width: 100%;top:45%;left:0">
+            <div ng-show="products.loading" class="containerLoader" layout layout-align="center" style="opacity:0.2;position: fixed;width: 100%;top:45%;left:0">
                 <md-progress-circular  style="opacity: 1" ng-disabled="!vm.activated" class="md-hue-2" md-diameter="200px"></md-progress-circular>
             </div>
 
 
-            <div style="text-align: center; padding:35px 0" ng-show="(!restaurants.data.orders || restaurants.data.orders.length == 0) && !restaurants.loading">
+            <div style="text-align: center; padding:35px 0" ng-show="(!products.data || products.data.length == 0) && !products.loading && products.status != 'FAILURE'">
                 <img width="35%" src="assets/images/no-result.png"/>
             </div>
-		</div>
-		<div>
-                <dir-pagination-controls style="float:right" pagination-id="restaurantListPagination" boundary-links="true" on-page-change="getRestaurantList()"
-                                         template-url="app/directive/dirPagination.tpl.html"></dir-pagination-controls>
+            
+             <div style="text-align: center; padding:35px 0;color:red" ng-show="!products.loading && products.status == 'FAILURE'">
+                {{products.message}}
             </div>
+		</div>
 	</div>
 </div>
 

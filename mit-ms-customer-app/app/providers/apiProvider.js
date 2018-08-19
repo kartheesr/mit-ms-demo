@@ -91,8 +91,46 @@ angular.module('msCusApp.providers').provider('api', function ApiProvider() {
 			});
 		};
 
-		apiClass.Auth.getUserInfo = function (profileId, callback) {
-			httpRequest("POST", "user/profile/"+profileId, "", function (err, data) {
+		apiClass.Product = {
+
+		};
+
+		apiClass.Product.addProduct = function (product, callback) {
+			httpRequest("POST", "mit-ms-product-service/product", product, function (err, data) {
+				if (err) {
+					callback(null, err);
+				} else {
+					callback(data, null);
+				}
+			});
+		};
+		
+		apiClass.Product.getAllProducts = function (callback) {
+			httpRequest("GET", "mit-ms-product-service/product", null, function (err, data) {
+				if (err) {
+					callback(null, err);
+				} else {
+					callback(data, null);
+				}
+			});
+		};
+		
+		apiClass.Order = {
+
+		};
+
+		apiClass.Order.buyProduct = function (order, callback) {
+			httpRequest("POST", "mit-ms-order-service/order", order, function (err, data) {
+				if (err) {
+					callback(null, err);
+				} else {
+					callback(data, null);
+				}
+			});
+		};
+		
+		apiClass.Order.getAllOrders = function (id, callback) {
+			httpRequest("GET", "mit-ms-order-service/order/customer/"+id, null, function (err, data) {
 				if (err) {
 					callback(null, err);
 				} else {

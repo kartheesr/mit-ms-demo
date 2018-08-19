@@ -11,6 +11,7 @@ angular.module('msCusApp.controllers')
 	function login(){
 		api.Auth.login($scope.auth, function(result, status){
 			if(result != null && result.status == CONSTANT.STATUS.SUCCESS){
+				ipCookie('AD_PFID', result.data.id);
 				$state.go("app.products");
 			}else if(result != null && result.status == CONSTANT.STATUS.FAILURE){
 				$scope.response.status = CONSTANT.STATUS.FAILURE;
