@@ -36,16 +36,17 @@ public class OrderController {
     			double totalPrice = unitPrice * req.getQty();
     			req.setTotalPrice(totalPrice);
 				Order data = orderService.save(req);
-				response.setMessage(CSResponseMessage.RECORD_ADDED);
 				response.setStatus(CSResponseMessage.SUCCESS);
+				response.setMessage(CSResponseMessage.RECORD_ADDED);
 				response.setData(data);
     		}else {
-    			response.setMessage(CSResponseMessage.FAILURE);
-				response.setStatus(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
+    			response.setStatus(CSResponseMessage.FAILURE);
+				response.setMessage(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
     		}
     	}catch(Exception e){
+    		e.printStackTrace();
     		response.setStatus(CSResponseMessage.ERROR);
-    		response.setMessage(CSResponseMessage.RECORD_ADD_ERROR);
+    		response.setMessage(e.getMessage());
     	}
         return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
     }
@@ -58,8 +59,9 @@ public class OrderController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(order);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -69,11 +71,12 @@ public class OrderController {
 	    	MyAppointmentResponse response = new MyAppointmentResponse();
 	    	try{
 	    		orderService.deleteById(sampleId);
-	    		response.setMessage(CSResponseMessage.RECORD_DELETED);
 	    		response.setStatus(CSResponseMessage.SUCCESS);
+	    		response.setMessage(CSResponseMessage.RECORD_DELETED);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.RECORD_DELETE_ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -86,8 +89,9 @@ public class OrderController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(orders);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -100,8 +104,9 @@ public class OrderController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(sampleList);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }

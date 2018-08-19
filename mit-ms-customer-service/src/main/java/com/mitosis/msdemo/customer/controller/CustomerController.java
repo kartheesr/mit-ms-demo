@@ -40,20 +40,21 @@ public class CustomerController {
 					String encPass = CommonUtils.passwordToHash(req.getPassword());
 					req.setPassword(encPass);
 					Customer data = customerService.save(req);
-					response.setMessage(CSResponseMessage.RECORD_ADDED);
 					response.setStatus(CSResponseMessage.SUCCESS);
+					response.setMessage(CSResponseMessage.RECORD_ADDED);
 					response.setData(data);
 				}else {
-					response.setMessage(CSResponseMessage.FAILURE);
-					response.setStatus(CSResponseMessage.EMAIL_EXIST);
+					response.setStatus(CSResponseMessage.FAILURE);
+					response.setMessage(CSResponseMessage.EMAIL_EXIST);
 				}
     		}else {
-    			response.setMessage(CSResponseMessage.FAILURE);
-				response.setStatus(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
+    			response.setStatus(CSResponseMessage.FAILURE);
+				response.setMessage(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
     		}
     	}catch(Exception e){
+    		e.printStackTrace();
     		response.setStatus(CSResponseMessage.ERROR);
-    		response.setMessage(CSResponseMessage.RECORD_ADD_ERROR);
+    		response.setMessage(e.getMessage());
     	}
         return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
     }
@@ -67,20 +68,21 @@ public class CustomerController {
 				String encPass = CommonUtils.passwordToHash(req.getPassword());
 				Customer profile = customerDao.findByEmailAndPassword(email, encPass);
 				if(profile!=null){
-					response.setMessage(CSResponseMessage.SUCCESS);
 					response.setStatus(CSResponseMessage.SUCCESS);
+					response.setMessage(CSResponseMessage.SUCCESS);
 					response.setData(profile);
 				}else {
-					response.setMessage(CSResponseMessage.FAILURE);
-					response.setStatus(CSResponseMessage.INCORRECT_EMAIL_OR_PASSWORD);
+					response.setStatus(CSResponseMessage.FAILURE);
+					response.setMessage(CSResponseMessage.INCORRECT_EMAIL_OR_PASSWORD);
 				}
     		}else {
-    			response.setMessage(CSResponseMessage.FAILURE);
-				response.setStatus(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
+    			response.setStatus(CSResponseMessage.FAILURE);
+				response.setMessage(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
     		}
     	}catch(Exception e){
+    		e.printStackTrace();
     		response.setStatus(CSResponseMessage.ERROR);
-    		response.setMessage(CSResponseMessage.RECORD_ADD_ERROR);
+    		response.setMessage(e.getMessage());
     	}
         return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
     }
@@ -93,8 +95,9 @@ public class CustomerController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(customer);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -104,11 +107,12 @@ public class CustomerController {
 	    	MyAppointmentResponse response = new MyAppointmentResponse();
 	    	try{
 	    		customerService.deleteById(sampleId);
-	    		response.setMessage(CSResponseMessage.RECORD_DELETED);
 	    		response.setStatus(CSResponseMessage.SUCCESS);
+	    		response.setMessage(CSResponseMessage.RECORD_DELETED);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.RECORD_DELETE_ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -121,8 +125,9 @@ public class CustomerController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(sampleList);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }

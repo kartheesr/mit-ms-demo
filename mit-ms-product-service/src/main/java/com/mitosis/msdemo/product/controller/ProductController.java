@@ -37,21 +37,21 @@ public class ProductController {
 				if(product==null || (product.getId().equals(req.getId()))){
 					req.setCode(code);
 					Product data = productService.save(req);
-					response.setMessage(CSResponseMessage.RECORD_UPDATED);
 					response.setStatus(CSResponseMessage.SUCCESS);
+					response.setMessage(CSResponseMessage.RECORD_UPDATED);
 					response.setData(data);
 				}else {
-					response.setMessage(CSResponseMessage.FAILURE);
-					response.setStatus(CSResponseMessage.NAME_EXIST);
+					response.setStatus(CSResponseMessage.FAILURE);
+					response.setMessage(CSResponseMessage.NAME_EXIST);
 				}
     		}else {
-    			response.setMessage(CSResponseMessage.FAILURE);
-				response.setStatus(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
+    			response.setStatus(CSResponseMessage.FAILURE);
+				response.setMessage(CSResponseMessage.MANDATORY_PARAMETERS_MISSING);
     		}
     	}catch(Exception e){
     		e.printStackTrace();
     		response.setStatus(CSResponseMessage.ERROR);
-    		response.setMessage(CSResponseMessage.RECORD_ADD_ERROR);
+    		response.setMessage(e.getMessage());
     	}
         return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
     }
@@ -64,8 +64,9 @@ public class ProductController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(product);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -78,8 +79,9 @@ public class ProductController {
 	    		response.setMessage(CSResponseMessage.RECORD_DELETED);
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.RECORD_DELETE_ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }
@@ -92,8 +94,9 @@ public class ProductController {
 	    		response.setStatus(CSResponseMessage.SUCCESS);
 	    		response.setData(sampleList);
 	    	}catch(Exception e){
-	    		response.setStatus(CSResponseMessage.FAILURE);
-	    		response.setMessage(CSResponseMessage.ERROR);
+	    		e.printStackTrace();
+	    		response.setStatus(CSResponseMessage.ERROR);
+	    		response.setMessage(e.getMessage());
 	    	}
 	        return new ResponseEntity<MyAppointmentResponse>(response, HttpStatus.OK);
 	    }

@@ -2,6 +2,8 @@ package com.mitosis.msdemo.customer.model;
 
 import org.springframework.data.annotation.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Customer {
 
 	@Id
@@ -13,6 +15,7 @@ public class Customer {
 	
 	private String phone;
 	
+	@JsonIgnore
 	private String password;
 
 	public String getId() {
