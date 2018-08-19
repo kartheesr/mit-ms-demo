@@ -20,6 +20,12 @@ angular.module('app')
 		url: '/products',
 		templateUrl: 'app/modules/products/productList.html',
 		controller:'productsCtrl'
+	})
+	
+	.state('app.orders', {
+		url: '/orders',
+		templateUrl: 'app/modules/orders/ordersList.html',
+		controller:'ordersCtrl'
 	});
 
 	$httpProvider.defaults.useXDomain = true;

@@ -72,7 +72,17 @@ angular.module('msCusApp.providers').provider('api', function ApiProvider() {
 		};
 
 		apiClass.Auth.login = function (user, callback) {
-			httpRequest("POST", "user/login", user, function (err, data) {
+			httpRequest("POST", "mit-ms-customer-service/customer/login", user, function (err, data) {
+				if (err) {
+					callback(null, err);
+				} else {
+					callback(data, null);
+				}
+			});
+		};
+		
+		apiClass.Auth.register = function (user, callback) {
+			httpRequest("POST", "mit-ms-customer-service/customer/registration", user, function (err, data) {
 				if (err) {
 					callback(null, err);
 				} else {

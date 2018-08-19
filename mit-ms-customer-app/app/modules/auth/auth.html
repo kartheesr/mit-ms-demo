@@ -143,34 +143,36 @@ body {
 <!-- Button Mixin-->
 <!-- Pen Title-->
 <div class="pen-title">
- <!--  <h1>Login Form</h1> --><!-- <span>Pen <i class='fa fa-paint-brush'></i> + <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span> -->
 </div>
 <!-- Form Module-->
-<div class="module form-module">
+<div class="module form-module" ng-init="authSec = 'login'">
 	<img src="assets/images/logo/pinslots-logo.png" style="display:block; margin:20px auto; width:230px;"/>
-  <div class="form">
+  <div class="form" >
+    <div ng-show="authSec== 'login'">
     <h2 style="font-family: Poppins-Medium; " class="text-center">Login to your account</h2>
     <form>
-      <input type="text" placeholder="Username" ng-model="auth.userName" autofocus="autofocus"/>
+      <input type="text" placeholder="Username" ng-model="auth.email" autofocus="autofocus"/>
       <input type="password" placeholder="Password"  ng-model="auth.password"/>
       <p ng-show="response.status=='FAILURE'" style="text-align:center;color:red;"> {{response.message}}</p>
       <button ng-click="login();">Login</button>
     </form>
-  </div>
-  
-  
-  
-  
-  
-  
- <!--  <div class="form">
-    <h2 >Login to your account</h2>
+     <div style="text-align: center;padding-top: 20px;" ng-click="authSec = 'reg'"><a href="">Create an account</a></div>
+    </div>
+    
+    <div ng-show="authSec== 'reg'">
+      <h2 style="font-family: Poppins-Medium; " class="text-center">Create your account</h2>
     <form>
-      <input type="text" placeholder="Username"/>
-      <input type="password" placeholder="Password"/>
-      
-      <button>LOGIN</button>
+      <input type="text" placeholder="User Name *" ng-model="regDt.name" autofocus="autofocus"/>
+      <input type="text" placeholder="Email *" ng-model="regDt.email"/>
+      <input type="text" placeholder="Phone" ng-model="regDt.phone" />
+      <input type="password" placeholder="Password *"  ng-model="auth.password"/>
+      <p ng-show="response.status=='SUCCESS'" style="text-align:center;"> Account Created</p>
+      <p ng-show="response.status=='FAILURE'" style="text-align:center;color:red;"> {{response.message}}</p>
+      <button ng-click="register();">Register</button>
     </form>
-  </div> -->
-  <!-- <div class="cta"><a href="">Forgot your password?</a></div> -->
+    <div style="text-align: center;padding-top: 20px;" ng-click="authSec = 'login'"><a href="">Back to Login</a></div>
+    
+    </div>
+  </div>
+ 
 </div>
