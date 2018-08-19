@@ -146,7 +146,7 @@ body {
 </div>
 <!-- Form Module-->
 <div class="module form-module" ng-init="authSec = 'login'">
-	<img src="assets/images/logo/pinslots-logo.png" style="display:block; margin:20px auto; width:230px;"/>
+	<img src="assets/images/logo/mit-logo-big.png" style="display:block; margin:20px auto; width:230px;"/>
   <div class="form" >
     <div ng-show="authSec== 'login'">
     <h2 style="font-family: Poppins-Medium; " class="text-center">Login to your account</h2>
@@ -164,8 +164,8 @@ body {
     <form>
       <input type="text" placeholder="User Name *" ng-model="regDt.name" autofocus="autofocus"/>
       <input type="text" placeholder="Email *" ng-model="regDt.email"/>
-      <input type="text" placeholder="Phone" ng-model="regDt.phone" />
-      <input type="password" placeholder="Password *"  ng-model="auth.password"/>
+      <input type="text" placeholder="Phone" valid-number ng-model="regDt.phone" />
+      <input type="password" placeholder="Password *"  ng-model="regDt.password"/>
       <p ng-show="response.status=='SUCCESS'" style="text-align:center;"> Account Created</p>
       <p ng-show="response.status=='FAILURE'" style="text-align:center;color:red;"> {{response.message}}</p>
       <button ng-click="register();">Register</button>

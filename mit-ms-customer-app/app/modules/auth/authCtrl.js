@@ -1,5 +1,5 @@
 angular.module('msCusApp.controllers')
-.controller("authCtrl", function($scope, api, $rootScope, $state, CONSTANT, $timeout, User, ipCookie) {
+.controller("authCtrl", function($scope, api, $rootScope, $state, CONSTANT, $timeout, ipCookie) {
 
 	$scope.auth = {};
 	$scope.regDt = {};

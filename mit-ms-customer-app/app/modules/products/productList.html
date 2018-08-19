@@ -1,242 +1,57 @@
-<style>
-	.couponList{background-color:#f5f5f5; font-family:'opensans-regular' !important;}
-	.couponList .couponHeader{background-color:#fcfcfc; min-height:100%; background-color:#fbfbfb;}
-	.ch-title{ padding:20px 0px 15px;}
-	.ch-title .ch-image{ width:100px;}
-	.ch-title h1{ margin:0px; padding:0px; line-height:30px !important; font-weight:600;}
-	.ch-title p{ font-size:18px; color:#46bd04;}
-	.couponContainer{ background-color:#F5F5F5; padding:30px 0px 25px;}
-	.couponListBox{ width:100%; margin-bottom:20px; border-radius:6px; box-shadow:0px 3px 5px rgba(0,0,0,0.2); background-color:#FFFFFF;}
-	.couponListBox:hover{box-shadow:0px 5px 7px rgba(0,0,0,0.2);}
-	.proLogo h3{ color:#46bd04; font-size:24px;}
-	.couponListBox .proLogo{width:260px; height: 170px;}
-	.couponListBox .proLogo h3{ height:40px;}
-	.couponListBox .proLogo p{ font-size:16px;}
-	.couponListBox ul{ list-style-type:none; padding:0px; martgin:0px;}
-	.couponListBox ul li{ display:inline-block; margin-right:20px;}
-	.couponListBox ul li a{ display:inline-block; border:1px solid rgba(0,0,0,0.2); padding:2px 20px 1px; border-radius:20px;}
-	.couponListBox .listheader h3{ margin:6px 0px 3px; padding:0px; font-size:22px; font-weight: 600;}
-	.couponListBox .clb-footer{ padding:10px 15px; font-size: 17px;}
-	.couponHeader ul{ margin:0px; padding:0px; list-style-type:none; border-top:1px solid rgba(0,0,0,0.1);}
-	.couponHeader ul li{ display:inline-block;}
-	.couponHeader ul li a{ display:inline-block; font-size:16px; padding:8px 20px 5px; border-bottom:3px solid transparent}
-	.couponHeader ul li.active a { border-color:#d0011b;}
-	.overflowEllipsis{ white-space: nowrap; overflow: hidden; padding:0px 15px; text-overflow: ellipsis; }
-	md-ink-bar{ display:none;}
-	md-tabs .md-tab.md-active > a{  color:#FFFFFF; background-color:#d0011b;  border-radius:15px;}
+<div class="main-home">
+	<div class="container">
 	
-	md-tabs .md-tab > a{ padding:3px 7px; display:inline-block;  font-weight:600;}
-	.md-tab{ padding:5px 0px 5px 0px !important ;}
-	md-pagination-wrapper{ width:100% !important;}
 	
-	.clb-footer ul li a img{ width:30px; height:30px; }
-	.clb-footer ul li a img:hover{ }
-	
-	.overflow-ellipsis-3{ overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2;-webkit-box-orient: vertical;  }
-	
-	.clb-footer ul{ padding:0px; margin:0px; list-style-type:none;}
-	.clb-footer ul li {padding:0px; margin:0px; list-style-type:none; display:inline-block;}
-	.clb-footer ul li a{ display:inline-block; padding:0px 5px; border:none;}
-	
-	.dsiable-button { opacity:0.5;}
-</style>
-<div class="couponList">
-	<div class="couponHeader">
-		<div class="container">
-			<div layout="row" class="ch-title">
-				<div flex="none" class="ch-image">
-				
-				<img  src="assets/images/coupon-ico.png" style="height:40px;  display:block; margin:5px auto 0px;">
-				</div>
-				<div flex>
-					<div layout="row">
-						<div flex>
-							<h1>{{currentBusinessType.name}} Offers and Deals</h1>
-							<p ng-show="couponDetails.data.paginate.total >= 0">{{couponDetails.data.paginate.total}} {{couponDetails.data.paginate.total > 1 ? 'deals are available':'deal is available'}} </p>
-						</div>
-						<div flex="none">
-							<input type="" class="searchDeals" id="searchlocation" ng-model = "location" placeholder="Search Deals By Location" style="padding:15px 20px 15px 50px;     box-shadow: 0px 0px 20px rgba(0,0,0,0.1); font-size:16px;background-position: 21px 18px; background-size: 16px; background-image:url('assets/images/search2.png'); background-repeat:no-repeat;"/>
-						</div>
+		<div class="tableBooking">
+			<div class="tb-header">
+				<div layout="row">
+					<div flex="50">
+						<h5>Product List</h5>
+					</div>
+					<div flex="50" class="text-right manipulationIcon">
+						<input type="text" ng-model="restaurants.filter.searchText" ng-model-options="{ debounce: {'default': 2000} }" ng-change="getRestaurantList();" placeholder="Search" style="background-image:url(assets/images/musica-searcher.png); "/>
+						<button ui-sref="app.settings.restaurant"><span><img src="assets/images/add.png" /></span> ADD RESTAURANT</button>
 					</div>
 				</div>
 			</div>
-			
-			
-			
-			<md-content>
-			    <md-tabs md-dynamic-height md-border-bottom>
-			      <md-tab md-active="currentBusinessType.id == type.id" ng-repeat="type in businessTypes"  label="">
-			      	<a href="" ng-click="changeTab('type', type)">{{type.name}}</a>
-			      </md-tab>
-			    </md-tabs>
-  			</md-content>
-  
-  
-  
-  
-			<ul>
-				<li ng-class="{'active': !currentBusinessSubType}" ng-click="changeTab('subType')"><a href="">All</a></li>
-				<li ng-class="{'active': currentBusinessSubType.id == tye.id}" ng-click="changeTab('subType', tye)" ng-repeat="tye in businessSubTypes"><a href="">{{tye.name}}</a></li>
-			</ul>
+          
+            <div style="overflow:auto;">
+				<table style="min-width:800px;">
+					<thead>
+						<tr>
+							<th>PRODUCT NAME</th>
+							<th>PRICE</th>
+							<th>CURRENT STATUS</th>
+							<th ><span style="min-width:300px; display:inline-block;">ACTIONS</span></th>
+						</tr>
+					</thead>
+					<tbody style="position: relative">
+						<tr dir-paginate="dt in restaurants.data.orders | itemsPerPage: restaurants.filter.paginate.limit : 'restaurantListPagination' track by $index"  pagination-id="restaurantListPagination" current-page="restaurants.filter.paginate.pageNo" total-items="total">
+							<td><span class="highlight" style="display:inline-block; max-width:200px; overflow: hidden;text-overflow: ellipsis;  white-space: nowrap;  "><md-tooltip md-direction="bottom">{{dt.name}}</md-tooltip> {{dt.name}}</span></td>
+							<td>{{dt.createOn | date:'dd MMM yyyy'}}</td>
+							<td>{{dt.phone}}</td>
+							<td><span class="active" style="width: 75px"  ng-style="{'background-color':dt.isNow?'#61c631':'red'}"><i class="fa fa-check" aria-hidden="true"></i> {{(!dt.loading) ? (dt.isNow?'ACTIVE':'IN-ACTIVE'):''}} {{(dt.loading)?'Processing..':''}}</span></td>
+							<td>
+	
+	                        </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+            <div ng-show="restaurants.loading" class="containerLoader" layout layout-align="center" style="opacity:0.2;position: fixed;width: 100%;top:45%;left:0">
+                <md-progress-circular  style="opacity: 1" ng-disabled="!vm.activated" class="md-hue-2" md-diameter="200px"></md-progress-circular>
+            </div>
+
+
+            <div style="text-align: center; padding:35px 0" ng-show="(!restaurants.data.orders || restaurants.data.orders.length == 0) && !restaurants.loading">
+                <img width="35%" src="assets/images/no-result.png"/>
+            </div>
 		</div>
+		<div>
+                <dir-pagination-controls style="float:right" pagination-id="restaurantListPagination" boundary-links="true" on-page-change="getRestaurantList()"
+                                         template-url="app/directive/dirPagination.tpl.html"></dir-pagination-controls>
+            </div>
 	</div>
-	
-	 <div class="couponContainer">
-		<div class="container">
-			<h3 class="nomargin nopadding">Today's Deals</h3>
-			 <div class="couponListBox" dir-paginate="deal in couponDetails.data.result | itemsPerPage: couponDetails.filter.paginate.limit : 'retailPagination' track by $index"  pagination-id="retailPagination" current-page="couponDetails.filter.paginate.pageNo" class="carLists" total-items="couponDetails.data.paginate.total">
-				<div layout="column">
-					<div flex>
-						<div layout="row">
-							<div flex="none"  layout="column" layout-align="center center" class="proLogo">
-								
-								<h4 style="color:#d0011b; font-size: 24px;" class="nomargin nopadding">{{deal.business.businessName ? deal.business.businessName : deal.business.name}}</h4>
-								<div style="min-height:80px; width:100%" layout layout-align="center center">
-								<img ng-show="!deal.business.logoUrl" src="assets/landingpage/images/logo.png" height="40"/>
-								<img ng-show="deal.business.logoUrl" src="{{deal.business.logoUrl}}" height="40" style="min-height:75px;" />
-								</div>
-								<p class="text-center" style="padding:0px 15px;">{{deal.business.location.addressLine2 ? deal.business.location.addressLine2 : deal.business.location.addressLine1}}, {{deal.business.location.city}}</p>
-							</div>
-							<div flex layout="column" style="padding:15px 30px; border-left:1px solid rgba(0,0,0,0.1);">
-								<div flex="none" layout="row" class="listheader">
-									<div flex>
-										<h2 class="nomargin nopadding overflowEllipsis" style="line-height: 30px !important; font-size:26px; font-weight:600;">{{deal.promoName}}</h2>
-										<!-- <ul>
-											<li><a style="cursor:text;">PinSlots Offer</a></li>
-											<li><a style="cursor:text;">PinSlots Retail Offer</a></li>
-										</ul> -->
-										<h4 class="nomargin">{{deal.discount}}% Offer {{deal.itemName ? 'on':''}} {{deal.itemName}}</h4>
-									</div>
-									<div flex="none"><button ng-class="{'dsiable-button':!deal.isAvailable}" style="background-color:#d0011b; color:#FFFFFF; font-size:16px; border:none; border-radius:6px; padding:0px 25px; height:38px;" ng-disabled="!deal.isAvailable" ng-click="!deal.isAvailable ? '' : deal.businessType == 'RETAIL' ? getdetails($event, deal) : goToDetailsPage($event, deal);" >Get Deals</button></div> <!-- goToDetailsPage($event, deal);  -->
-								</div>
-								<div flex>
-									<p style="font-size:16px; color:#666666;" class="overflow-ellipsis-3" ng-bind-html="deal.desc ? deal.desc : deal.termsAndConditions"></p>
-									<!-- <a ng-show="deal.desc" href="" style="color:#d0011b; font-size:16px;">More...</a> -->
-								</div>
-							</div>
-						</div>
-					</div>
-					<div flex="none" layout="row" style="border-top:1px solid rgba(0,0,0,0.1);" class="clb-footer">
-						<div flex="none"><img src="assets/images/svg/clock-with-white-face.svg"  style="position:relative; top:-2px; margin-right:5px;" width="16">&nbsp;<strong>Starts from</strong> {{deal.dates[0].startDateTime | date:'dd MMM hh:mm a'}} &nbsp;<strong>to</strong> {{deal.dates[0].endDateTime | date:'dd MMM hh:mm a'}}</div>
-						<div flex style="margin-left:30px; padding-left:30px;" ></div>
-						<div flex="none" >
-							<ul>
-								<li>
-									<div flex="none" class="flex-none" ng-show="!deal.isFavourite" ng-click="savePromo(deal.id, deal);$event.stopPropagation();" style="cursor: pointer">
-										<div class="">
-											<md-tooltip md-direction="bottom">Add to Favorite</md-tooltip>
-											<img src="assets/icons/fav-inactive-icon.png" style="width: 30px;">
-										</div>
-									</div>
-									<div flex="none" class="flex-none" ng-show="deal.isFavourite" delete-conformation="Would you like to remove from favourite?" confirmed-click = "removePromoOffer(deal.id, deal);$event.stopPropagation();" style="cursor: pointer">
-										<div class="">
-											<md-tooltip md-direction="bottom">Remove from Favorite</md-tooltip>
-											<img src="assets/icons/fav-active-icon.png" style="width: 30px;">
-										</div>
-									</div>
-								</li>
-								<li>
-								  <div class="dropup">
-							    <a class=" dropdown-toggle"  type="button" data-toggle="dropdown"><md-tooltip md-direction="bottom">Share</md-tooltip><img src="assets/icons/share-icon.png"/>
-							    </a>
-							    <ul class="dropdown-menu">
-							      <li>
-							      	<a href="" ng-click="shareOnScialMedia('facebook', deal, currentUrl)">
-							      		<span style="width:22px; display:inline-block; text-align:center;"><i style="color:#3b5998;" class="fa fa-facebook" aria-hidden="true"></i></span>
-							      		Facebook
-						      		</a>
-						      	  </li>
-							      <li>
-							      	<a href="" socialshare socialshare-provider="linkedin"
-									   socialshare-url="{{currentUrl}}" 
-									 socialshare-text="{{socialShareText}}" socialshare-popup-height="600" socialshare-popup-width="600">
-							      		<span style="width:22px; display:inline-block; text-align:center;"><i style="color:#fb3958;" class="fa fa-linkedin" aria-hidden="true"></i></span>
-							      		Linkedin
-						      		</a>
-						      	  </li>
-						      	  <li>
-							      	<a href="" socialshare socialshare-provider="pinterest"
-									   socialshare-url="{{currentUrl}}" 
-									 socialshare-text="{{socialShareText}}" socialshare-popup-height="600" socialshare-popup-width="600">
-							      		<span style="width:22px; display:inline-block; text-align:center;">
-							      		<i style="color:#C92228;" class="fa fa-pinterest" aria-hidden="true"></i>
-							      		</span>
-							      		Pinterest
-						      		</a>
-						      	  </li>
-						      	  <li>
-							      	<a href="" socialshare socialshare-provider="twitter"
-									   socialshare-url="{{currentUrl}}" 
-									 socialshare-text="{{socialShareText}}" socialshare-popup-height="600" socialshare-popup-width="600">
-							      		<span style="width:22px; display:inline-block; text-align:center;">
-							      		<i style="color:#00aced;" class="fa fa-twitter" aria-hidden="true"></i>
-							      		</span>
-							      		Twitter
-						      		</a>
-						      	  </li>
-						      	  <li>
-							      	<a href="" ng-click="shareOnScialMedia('googleplus', deal, currentUrl)">
-							      		<span style="width:22px; display:inline-block; text-align:center;">
-							      		<i style="color:#d34836;" class="fa fa-google-plus" aria-hidden="true"></i>
-							      		</span>
-							      		Google +
-						      		</a>
-						      	  </li>
-							    </ul>
-							  </div>
-								</li>
-								<li ng-show="deal.youtubeLink"><md-tooltip md-direction="bottom">Video</md-tooltip><a href="" ng-click="loadYouTube(deal.youtubeLink)"><img src="assets/icons/video-icon.png"/></a></li>
-								<li ng-show="deal.imageUrls && deal.imageUrls.length > 0" ng-click="showImageGallery(deal.imageUrls)"><a href=""><md-tooltip md-direction="bottom">Gallery</md-tooltip><img src="assets/icons/gallery-icon.png"/></a></li>
-								<li ng-show="deal.userManualUrl"><a href="" ui-sref="userguide({'url': deal.userManualUrl})" target="_blank" ><md-tooltip md-direction="bottom">User Guide</md-tooltip><img src="assets/icons/user-guide-icon.png"/></a></li>
-								<li ng-show="deal.enableChat">
-							   		<a href="" ng-click="openChat($event, deal, 'Coupon', deal.chatId)" >
-										<md-tooltip md-direction="bottom">Chat with Manager</md-tooltip>
-										<img src="assets/icons/chat-icon.png"/>
-									</a>
-							   	</li>
-								<li ng-click="viewMoreDetails(deal)"><a href=""><md-tooltip md-direction="bottom">More</md-tooltip> <img src="assets/images/more-ico.png"/> </a></li>
-							</ul>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-			<div ng-show="couponDetails.loading">
-				<div class="couponListBox relPosition" >
-				     <div style="position:absolute; width:100px; top:50px; left:50%; height:100px;"><md-progress-circular class="md-hue-2" md-diameter="100px"></md-progress-circular></div>
-				     <div layout="column">
-				      <div flex>
-				       <div layout="row">
-				        <div flex="none"  layout="column" layout-align="center center" class="proLogo">
-				         <div style="background-color:rgba(0,0,0,0.1); height:20px; width:60%; margin:0px auto"></div>
-				         <div style="background-color:rgba(0,0,0,0.1); height:40px;  width:40%; margin:20px auto"></div>
-				         <div style="background-color:rgba(0,0,0,0.1); height:10px; width:80%; margin:0px auto"></div>
-				        </div>
-				        <div flex layout="column" style="padding:15px 30px; border-left:1px solid rgba(0,0,0,0.1);">
-				         <div flex="none" layout="row" class="listheader">
-				          <div flex>
-				           <div style="background-color:rgba(0,0,0,0.1); height:25px; width:60%; margin:0px 0px"></div>
-				           <div style="background-color:rgba(0,0,0,0.1); height:10px; width:80%; margin:10px 0px"></div>
-				          </div>
-				          <div flex="none"><button style="background-color:rgba(0,0,0,0.1); color:#FFFFFF; font-size:16px; border:none; border-radius:6px; padding:0px 25px; height:38px;"  ></button></div> <!-- goToDetailsPage($event, deal);  -->
-				         </div>
-				         <div flex>
-				          <p style="font-size:16px; color:#666666;" class="overflow-ellipsis-3" ng-bind-html="deal.desc"></p>
-				         </div>
-				        </div>
-				       </div>
-				      </div>
-				     </div>
-			    </div>
-		    </div>
-			<div ng-show="!couponDetails.loading && couponDetails.data.result.length == 0">
-				<h2 class="text-center" style="font-weight:600;">Sorry, No Coupons Found</h2>
-				<img src="assets/images/notfound-bear.png"  style="width:500px; max-width:100%; display:block; margin:0px auto 20px;"/>
-			</div>
-			<div class="pull-right" ng-show="!couponDetails.loading && couponDetails.data && couponDetails.data.result && couponDetails.data.result.length != 0"> 
-							<dir-pagination-controls boundary-links="true"  pagination-id="retailPagination"  on-page-change="getRetailCoupons()" template-url="app/directive/dirPagination.tpl.html"></dir-pagination-controls>
-						</div>
-					</div>
-		</div>
-	 </div>
 </div>
+

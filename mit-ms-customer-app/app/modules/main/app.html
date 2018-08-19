@@ -4,35 +4,28 @@
 		<div class="main-nav">
 			<div class="container">
 				<div layout="row">
-					<div flex="none" style="padding-right:10px;">
-						<img class="logo" src="assets/images/logo/pinslots-logo.png" height="40"/>
+					<div flex="20" style="padding-right:10px;">
+						<img class="logo" src="assets/images/logo/mit-logo.png" height="40"/>
 					</div>
-					<div flex>
-					  <md-content class="header-tab-sec">
-					    <md-tabs md-dynamic-height md-border-bottom>
-					    	
-					      <md-tab ng-class="{active: stateName.includes('home')}">
-					      	<md-tab-label>
-					      		<a href=""  ui-sref="app.products"  style="display: inline-block; padding: 6px 10px;">
+					<div flex="60">
+					  <ul class="nav-menu" >
+							<li ng-class="{active: stateName.includes('products')}">
+								<a href=""  ui-sref="app.products"  style="display: inline-block; padding: 6px 10px;">
 					      			<img src="assets/images/nav-icons/home.png" width="20" ng-if="!stateName.includes('products')"/>
 									<img src="assets/images/nav-icons/home-white.png" width="20" ng-if="stateName.includes('products')"/><br/>
 									<strong>PRODUCTS</strong>
 					      		</a>
-					      	</md-tab-label>
-					      </md-tab>
-					      <md-tab ng-class="{active: stateName.includes('orders')}">
-					       	<md-tab-label>
-					       		<a href="" ui-sref="app.orders" style="display: inline-block;  padding: 6px 10px;">
+							</li>
+							<li ng-class="{active: stateName.includes('orders')}">
+								<a href="" ui-sref="app.orders" style="display: inline-block;  padding: 6px 10px;">
 									<img src="assets/images/nav-icons/clients.png" width="20" ng-if="!stateName.includes('orders')"/>
 									<img src="assets/images/nav-icons/clients-white.png" width="20" ng-if="stateName.includes('orders')"/><br/>
 									<strong>ORDERS</strong>
 								</a>
-					       	</md-tab-label>
-					      </md-tab>
-					    </md-tabs>
-					 </md-content>
+							</li>
+					  </ul>
 					</div>
-					<div flex="none">
+					<div flex="20">
 						<a href="" class="pull-right" style="margin-top: 12px;display:none" ><!-- {{userDetails.userName}} --> 
 						<img src="assets/images/temp/user-avatar.png" width="34" ng-click="logoutcheck();"/>
 						 <md-tooltip>Log Out</md-tooltip>
