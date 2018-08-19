@@ -15,7 +15,6 @@ public class Customer {
 	
 	private String phone;
 	
-	@JsonIgnore
 	private String password;
 
 	public String getId() {
