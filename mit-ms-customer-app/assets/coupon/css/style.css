@@ -1,0 +1,271 @@
+/* 
+
+body, html {
+  background-color: #0066B3;
+  font-family: "Muli", helvetica, sans-serif;
+  } */
+
+.addPromoContainer h1, .addPromoContainer p {
+  text-align: center; }
+
+.addPromoContainer p {
+  line-height: 1.6; }
+
+.addPromoContainer .text-headline {
+  font-weight: normal;
+  margin-bottom: 15px; }
+
+.addPromoContainer .text-white {
+  color: #FFFFFF; }
+
+.addPromoContainer .container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%; }
+ 
+.addPromoContainer .headings-text {
+  width: 800px;
+  max-width: 96%;
+  margin: 0px auto; }
+
+.addPromoContainer .workflow {
+  margin: 10px auto 10px;
+  position: relative;
+  text-align: center; }
+  .workflow ul {
+    display: flex;
+    list-style-type: none;  padding:0px;
+  margin:0px;}
+
+.addPromoContainer .workflow-line {
+  position: absolute;
+  z-index: 1;
+  top: 27px;
+  background-color: rgba(0,0,0,0.1);
+  height: 5px; }
+  .workflow-line .progress {
+    background-color: #EB5E28;
+    transition: all 1s;
+    border-radius: 5px;
+    position: absolute;
+    height: 5px;
+    top: 0px;
+    left: 0px;
+    width: 0px; }
+.addPromoContainer .headings-text p{ position:relative; top:-10px;}
+.addPromoContainer .workflow-steps {
+  flex-grow: 1;
+  flex-basis: 0;
+ 
+  position: relative; }
+  .workflow-steps .msg {
+    display: none; }
+  .workflow-steps .circle {
+    border-radius: 50%;
+    position: relative;
+    transition: all 1s;
+    text-decoration: none;
+    z-index: 2;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    background-color: #FFFFFF;
+    border:2px solid #EB5E28; }
+  .workflow-steps .circle:hover {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6); }
+  .workflow-steps p {
+  	font-size:17px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    color: #a9a7a7;
+    line-height:22px; }
+  .workflow-steps img {
+    position: absolute;
+    transition: all 1s;
+    top: 13px;
+    }
+
+.workflow-steps.active p{ color:#EB5E28;}
+.workflow-steps.active img{-webkit-filter: invert(100%); filter: invert(100%);}
+
+.msg-box {
+  border-radius: 15px;
+  background-color: #FFFFFF;
+  margin: 30px auto 0px;
+  
+  text-align: center; }
+  .msg-box h2 {
+    color: #EE1122;
+    text-transform: capitalize;
+    font-weight: normal; margin-bottom:15px !important }
+
+/* ANIMATION */
+.left-animated-arrow {
+  animation: arrow-animation 2s infinite;
+  position: absolute;
+  top: 20%;
+  left: 0; }
+
+.ap-fieldContainer .fieldCont label{ width:100%; text-transform:Capitalize; font-weight:bold !important; text-align:left; font-size: 16px;  font-family: 'Muli', Arial, sans-serif !important; margin-bottom:6px; }
+.ap-fieldContainer .fieldCont select, .ap-fieldContainer .fieldCont input{ 
+	background-color:rgba(0,0,0,0.03);
+	border:1px solid rgba(0,0,0,0.06);
+	height:40px; 
+	border-radius:3px; 
+	padding:0px 10px;
+	width:100%;
+	font-size: 16px;
+	font-weight: normal;
+	 font-family: 'Muli', Arial, sans-serif !important;
+}
+
+.ap-fieldContainer .fieldCont .addTimes{
+	width:120px; height:40px; border:none; border-radius:20px; background-color:#55a8fd; color:#FFFFFF; padding:12px 0px;
+}
+.ap-fieldContainer .fieldCont .removeTimes{
+	width:120px; height:40px; border:none; border-radius:20px; background-color:#EB5E28; color:#FFFFFF; padding:12px 0px;
+}
+
+.animate {
+  animation: animate 1s 1; }
+
+@keyframes arrow-animation {
+  0% {
+    left: 0px; }
+  30% {
+    left: -20px; }
+  50% {
+    left: 5px; }
+  60% {
+    left: -5px; }
+  70% {
+    left: 0px; } }
+
+@keyframes animate {
+  0% {
+    transform: rotateX(180deg);
+    opacity: 0; }
+  10% {
+    transform: rotateX(50deg);
+    opacity: 0.7; }
+  35% {
+    transform: rotateX(-30deg);
+    opacity: 1; }
+  70% {
+    transform: rotateX(10deg);
+    opacity: 1; }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1; } }
+
+.msg-box {
+  max-width: calc(100% - 40px); }
+
+/* MEDIA QUERY */
+/* > 600 */
+@media (max-width: 599px) {
+  .text-headline {
+    font-size: 20pt; }
+  .text-subhead {
+    font-size: 13pt; }
+  .text-regular {
+    font-size: 12pt; }
+  .workflow {
+    width: 80%;
+    flex-flow: column no-wrap; }
+  .workflow-steps .circle {
+    height: 60px;
+    width: 60px; }
+  .workflow-steps > p {
+    display: none; }
+  .msg-box h2 {
+    font-size: 16pt; }
+  .workflow-steps .circle {
+    font-size: 22pt; } 
+    .msg-box{padding: 0px;}
+    .btn-next, .btn-back{ margin-bottom:15px;}
+    }
+
+/* < 600 */
+@media (min-width: 600px) {
+	.msg-box{padding: 0px 40px;}
+  .text-headline {
+    font-size: 26pt; }
+  .text-subhead {
+    font-size: 16pt; }
+  .text-regular {
+    font-size: 16pt; }
+  .workflow {
+    flex-flow: row nowrap; }
+  .msg-box h2 {
+    font-size: 20pt;}
+  .workflow-steps .circle {
+    font-size: 30pt; } }
+
+/* < 600 & > 900 */
+@media (min-width: 600px) and (max-width: 899px) {
+  .workflow {
+    width: 560px; }
+  .workflow-steps .circle {
+    height: 60px;
+    width: 60px; }
+  .workflow-line {
+    width: 420px;
+    left: 70px; }
+  .msg-box {
+    width: 90%; }
+  .text-subhead {
+    font-size: 13pt; } .btn-next, .btn-back{ margin-bottom:15px;}}
+
+/* < 900 & > 1200 */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .workflow {
+    width: 760px; }
+  .workflow-steps .circle {
+    height: 60px;
+    width: 60px; }
+  .workflow-line {
+    width: 570px;
+    left: 95.5px; }
+  .msg-box {
+    width: 760px; }
+  .text-subhead {
+    font-size: 13pt; } }
+
+/* < 1200 & > 1800 */
+@media (min-width: 1200px) and (max-width: 1799px) {
+  .workflow {
+    width: auto; }
+  .workflow-steps .circle {
+    height: 60px;
+    width: 60px; }
+  .workflow-line {
+    width: 720px;
+    left: 120px; }
+  .msg-box {
+    width: 960px; }
+  .text-subhead {
+    font-size: 14pt; } }
+
+/* < 1800 */
+@media (min-width: 1800px) {
+  .workflow {
+    width: 1200px; }
+  .workflow-steps .circle {
+    height: 60px;
+    width: 60px; }
+  .workflow-line {
+    width: 900px;
+    left: 150px; }
+  .msg-box {
+    width: 1024px; }
+  .text-subhead {
+    font-size: 14pt; } }
+    
+    
+   
+    .navTriangle{}

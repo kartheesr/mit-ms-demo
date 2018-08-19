@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	  <link rel="icon" href="assets/images/static/favicon.png" type="image/png" sizes="16x16">
+
+	<link rel="stylesheet" type="text/css" href="libs/angular-material/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="libs/mdPickers/dist/mdPickers.css">
+	
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    
+    <!-- Template -->
+	<link rel="stylesheet" href="assets/template/styles.css">
+	
+    <title>Customer App</title>
+
+</head>
+
+<body>
+
+    <ui-view>
+    </ui-view>
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+    <!-- libraries -->
+    <script src="libs/angular/angular.min.js"></script>
+
+    <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="libs/angular-animate/angular-animate.min.js"></script>
+    <script src="libs/angular-aria/angular-aria.min.js"></script>
+	<script src="libs/angular-material/angular-material.min.js"></script>
+	 <script src="libs/ngstorage/ngStorage.min.js"></script>
+	 <script src="libs/mdPickers/dist/mdPickers.js"></script> 
+	 <script src="libs/angular-cookie/angular-cookie.min.js"></script>
+
+	<script src="assets/js/ui-bootstrap-tpls.js"></script>
+   
+    <!-- App config -->
+    <script src="app/app.js"></script>
+    <script src="app/routes.js"></script>
+    <script src="app/app.run.js"></script>
+
+    <!-- Constants-->
+    <script src="app/constants/env.js"></script>
+    <script src="app/constants/constants.js"></script>
+    
+    <!-- Main -->
+    <script src="app/modules/main/appCtrl.js"></script>
+    <script src="app/modules/auth/user.js"></script>
+    <script src="app/modules/auth/authCtrl.js"></script>
+    <script src="app/modules/main/appService.js"></script>
+    
+    <!-- Directives -->
+    <script type="text/javascript" src="app/directive/validNumber.js"></script>
+    <script type="text/javascript" src="app/directive/dirPagination.js"></script>
+
+    <!-- Provider -->
+    <script src="app/providers/apiProvider.js"></script>
+    
+    <script src="app/modules/products/productsCtrl.js"></script>
+
+</body>
+</html>

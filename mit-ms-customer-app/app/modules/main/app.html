@@ -1,0 +1,36 @@
+<main-header>
+	<section id="main-header">
+		
+		<div class="main-nav">
+			<div class="container">
+				<div layout="row">
+					<div flex="none" style="padding-right:10px;">
+						<img class="logo" src="assets/images/logo/pinslots-logo.png" height="40"/>
+					</div>
+					<div flex>
+					</div>
+					<div flex="none">
+						<a href="" class="pull-right" style="margin-top: 12px;display:none" ><!-- {{userDetails.userName}} --> 
+						<img src="assets/images/temp/user-avatar.png" width="34" ng-click="logoutcheck();"/>
+						 <md-tooltip>Log Out</md-tooltip>
+						 </a>
+						 <a ng-click="logoutcheck();"
+						  href="" class="pull-right" style="margin-top: 12px;" >
+						<img src="assets/images/temp/user-avatar.png" width="34" />
+						
+						 </a>
+						 
+						 
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	</section>
+
+
+
+</main-header>
+<ui-view>
+</ui-view>
+<main-footer></main-footer>
